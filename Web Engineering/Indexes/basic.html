@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML Lectures Interactive Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --primary: #0078d7;
+            --primary-dark: #005fa3;
+            --bg: #f9f9f9;
+            --sidebar-bg: #fff;
+            --text: #222;
+            --code-bg: #f4f4f4;
+        }
+        body.dark {
+            --primary: #222e3a;
+            --primary-dark: #1a2230;
+            --bg: #181c24;
+            --sidebar-bg: #222e3a;
+            --text: #f9f9f9;
+            --code-bg: #23272f;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            transition: background 0.3s, color 0.3s;
+        }
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 260px;
+            background: var(--sidebar-bg);
+            box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+            padding: 30px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .sidebar h1 {
+            text-align: center;
+            font-size: 1.6em;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        .lecture-list {
+            list-style: none;
+            padding: 0 30px;
+            margin: 0;
+        }
+        .lecture-list li {
+            margin: 10px 0;
+        }
+        .lecture-btn {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            width: 100%;
+            text-align: left;
+            transition: background 0.2s;
+        }
+        .lecture-btn:hover, .lecture-btn.active {
+            background: var(--primary-dark);
+        }
+        .dark-toggle {
+            margin: 0 auto;
+            padding: 8px 18px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.2s;
+        }
+        .dark-toggle:hover {
+            background: var(--primary-dark);
+        }
+        .main {
+            flex: 1;
+            padding: 40px 5vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .lecture-content {
+            width: 100%;
+            max-width: 700px;
+            margin-top: 10px;
+            padding: 28px 24px;
+            background: var(--sidebar-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        pre {
+            background: var(--code-bg);
+            color: #333;
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 1em;
+            overflow-x: auto;
+            margin-top: 10px;
+        }
+        body.dark pre {
+            color: #f9f9f9;
+        }
+        @media (max-width: 800px) {
+            .container { flex-direction: column; }
+            .sidebar { width: 100%; flex-direction: row; justify-content: space-between; padding: 10px 0;}
+            .lecture-list { padding: 0 10px;}
+            .main { padding: 20px 2vw;}
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <h1>HTML Lectures</h1>
+            <ul class="lecture-list">
+                <li><button class="lecture-btn" onclick="showLecture(0)">Lecture 1: Introduction to HTML</button></li>
+                <li><button class="lecture-btn" onclick="showLecture(1)">Lecture 2: HTML Elements & Structure</button></li>
+                <li><button class="lecture-btn" onclick="showLecture(2)">Lecture 3: Forms and Input</button></li>
+                <li><button class="lecture-btn" onclick="showLecture(3)">Lecture 4: Multimedia in HTML</button></li>
+                <li><button class="lecture-btn" onclick="showLecture(4)">Lecture 5: Semantic HTML</button></li>
+            </ul>
+            <button class="dark-toggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+        </nav>
+        <main class="main">
+            <div id="lectureContent" class="lecture-content"></div>
+        </main>
+    </div>
+    <script>
+        const lectures = [
+            {
+                title: "Lecture 1: Introduction to HTML",
+                content: `
+                    <h2>Introduction to HTML</h2>
+                    <p>HTML (HyperText Markup Language) is the standard language for creating webpages. It uses tags to structure content such as headings, paragraphs, links, images, and more.</p>
+                    <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;My First Page&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Hello, World!&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+                    </pre>
+                `
+            },
+            {
+                title: "Lecture 2: HTML Elements & Structure",
+                content: `
+                    <h2>HTML Elements & Structure</h2>
+                    <p>HTML documents are made up of elements. Common elements include headings (&lt;h1&gt; to &lt;h6&gt;), paragraphs (&lt;p&gt;), links (&lt;a&gt;), lists (&lt;ul&gt;, &lt;ol&gt;), and images (&lt;img&gt;).</p>
+                    <pre>
+&lt;h1&gt;Heading 1&lt;/h1&gt;
+&lt;p&gt;This is a paragraph.&lt;/p&gt;
+&lt;a href="https://example.com"&gt;Visit Example&lt;/a&gt;
+&lt;ul&gt;
+  &lt;li&gt;Item 1&lt;/li&gt;
+  &lt;li&gt;Item 2&lt;/li&gt;
+&lt;/ul&gt;
+                    </pre>
+                `
+            },
+            {
+                title: "Lecture 3: Forms and Input",
+                content: `
+                    <h2>Forms and Input</h2>
+                    <p>Forms allow users to submit data. Common input types include text, password, radio, checkbox, and submit.</p>
+                    <pre>
+&lt;form&gt;
+  &lt;label&gt;Name:&lt;/label&gt;
+  &lt;input type="text" name="name"&gt;
+  &lt;input type="submit" value="Submit"&gt;
+&lt;/form&gt;
+                    </pre>
+                `
+            },
+            {
+                title: "Lecture 4: Multimedia in HTML",
+                content: `
+                    <h2>Multimedia in HTML</h2>
+                    <p>HTML supports embedding images, audio, and video using &lt;img&gt;, &lt;audio&gt;, and &lt;video&gt; tags.</p>
+                    <pre>
+&lt;img src="image.jpg" alt="Sample Image"&gt;
+&lt;audio controls&gt;
+  &lt;source src="audio.mp3" type="audio/mpeg"&gt;
+&lt;/audio&gt;
+&lt;video width="320" height="240" controls&gt;
+  &lt;source src="movie.mp4" type="video/mp4"&gt;
+&lt;/video&gt;
+                    </pre>
+                `
+            },
+            {
+                title: "Lecture 5: Semantic HTML",
+                content: `
+                    <h2>Semantic HTML</h2>
+                    <p>Semantic elements describe their meaning. Examples include &lt;header&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;section&gt;, &lt;article&gt;, &lt;footer&gt;.</p>
+                    <pre>
+&lt;header&gt;Site Header&lt;/header&gt;
+&lt;nav&gt;Navigation Links&lt;/nav&gt;
+&lt;main&gt;Main Content&lt;/main&gt;
+&lt;footer&gt;Site Footer&lt;/footer&gt;
+                    </pre>
+                `
+            }
+        ];
+
+        function showLecture(index) {
+            const contentDiv = document.getElementById('lectureContent');
+            contentDiv.innerHTML = lectures[index].content;
+            contentDiv.style.display = 'block';
+            document.querySelectorAll('.lecture-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i === index);
+            });
+            // update page title and URL hash so lectures can be linked/bookmarked
+            document.title = lectures[index].title + " — HTML & CSS Lectures";
+            if (history && history.replaceState) {
+                history.replaceState(null, '', '#lecture-' + index);
+            } else {
+                location.hash = 'lecture-' + index;
+            }
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark');
+        }
+
+        // Show first lecture by default
+        showLecture(0);
+    </script>
+</body>
+</html>

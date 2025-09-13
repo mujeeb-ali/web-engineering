@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <h1>Learning forms in HTML</h1>
+</head>
+<style>
+h1{
+    color: navy;
+    text-align: center;
+    background-color: lightgray;
+}
+</style>
+
+<body>
+    <form action="./Table.html" >
+        <label for="name" style="width: 100px; display: inline-block;">Name:</label>
+        <input type="text" id="name" name="name" required placeholder="Enter your name"><br><br>
+
+        <label for="email" style="width: 100px; display: inline-block;">Email:</label>
+        <input type="email" id="email" name="email" required placeholder="example@gmail.com"><br><br>
+
+        <label for="password" style="width: 100px; display: inline-block;">Password:</label>
+        <input type="password" id="password" name="password" required placeholder="Enter your password"><br><br>
+
+        <label for="dob" style="width: 100px; display: inline-block;">Date of Birth:</label>
+        <input type="date" id="dob" name="dob"><br><br>
+
+        <label for="gender" style="width: 100px; display: inline-block;">Gender:</label>
+        <select id="gender" name="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+
+        <br><br>
+
+        <!-- Example of radio buttons for subscription -->
+        <label style="width: 100px; display: inline-block;">Subscribe:</label>
+        <input type="radio" id="subscribe_yes" name="subscribe" value="yes">
+        <label for="subscribe_yes">Yes</label>
+        <input type="radio" id="subscribe_no" name="subscribe" value="no">
+        <label for="subscribe_no">No</label>
+
+       
+        <br><br>
+        <!-- Checkboxes in HTML -->
+        <label style="width: 100px; display: inline-block;">Interests:</label>
+        <input type="checkbox" id="interest_sports" name="interests" value="sports">
+        <label for="interest_sports">Sports</label>
+        <input type="checkbox" id="interest_music" name="interests" value="music">
+        <label for="interest_music">Music</label>
+        <input type="checkbox" id="interest_reading" name="interests" value="reading">
+        <label for="interest_reading">Reading</label>
+        <br><br>
+
+        <!-- This is Example of dropdown box -->
+
+        <label for="country" style="width: 100px; display: inline-block;">Country:</label>
+        <select id="country" name="country">
+            <option value="" disabled selected>Select your country</option>
+            <option value="Pakistan" >Pakistan</option>
+            <option value="usa">United States</option>
+            <option value="uk">United Kingdom</option>
+            <option value="canada">Canada</option>
+            <option value="australia">Australia</option>
+            <option value="india">India</option>
+        </select>
+        <br><br>
+
+        <!-- File in form -->
+        <label for="resume" style="width: 100px; display: inline-block;">Upload Resume:</label>
+        <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx">
+        <br><br> <input type="submit" value="Submit">
+
+
+
+    </form>
+</body>
+
+</html>
